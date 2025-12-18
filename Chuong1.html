@@ -8,6 +8,7 @@
 
     <link rel="icon" href="AGOJ - logo.png" type="icon/png">
 
+
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 
@@ -227,18 +228,18 @@
             "system call": { ipa: "/ˈsɪs.təm kɔːl/", type: "noun", vi: "Lời gọi hệ thống", desc: "Giao diện để User Program yêu cầu dịch vụ từ Kernel." },
             "multiprocessor": { ipa: "/ˌmʌl.tiˈprəʊ.ses.ər/", type: "noun", vi: "Đa bộ xử lý", desc: "Hệ thống có nhiều CPU cùng chia sẻ bus, clock, memory." },
             "clustered": { ipa: "/ˈklʌs.təd/", type: "adj", vi: "Gom cụm", desc: "Nhiều hệ thống độc lập kết nối qua mạng (LAN) để làm việc chung." },
-            "timer": { 
-        ipa: "/ˈtaɪ.mər/", 
-        type: "noun", 
-        vi: "Bộ định thời", 
-        desc: "Cơ chế phần cứng tạo ngắt định kỳ để đảm bảo Hệ Điều Hành duy trì quyền kiểm soát CPU, ngăn chặn tiến trình chiếm giữ quá lâu." 
-    },
-    "privileged instruction": { 
-        ipa: "/ˈprɪv.əl.ɪdʒd ɪnˈstrʌk.sən/", 
-        type: "noun", 
-        vi: "Lệnh đặc quyền", 
-        desc: "Các lệnh nhạy cảm (như thiết lập Timer, I/O) chỉ được phép thực thi ở Kernel Mode để bảo vệ an toàn cho toàn bộ hệ thống." 
-    }
+            "timer": {
+                ipa: "/ˈtaɪ.mər/",
+                type: "noun",
+                vi: "Bộ định thời",
+                desc: "Cơ chế phần cứng tạo ngắt định kỳ để đảm bảo Hệ Điều Hành duy trì quyền kiểm soát CPU, ngăn chặn tiến trình chiếm giữ quá lâu."
+            },
+            "privileged instruction": {
+                ipa: "/ˈprɪv.əl.ɪdʒd ɪnˈstrʌk.sən/",
+                type: "noun",
+                vi: "Lệnh đặc quyền",
+                desc: "Các lệnh nhạy cảm (như thiết lập Timer, I/O) chỉ được phép thực thi ở Kernel Mode để bảo vệ an toàn cho toàn bộ hệ thống."
+            }
         };
 
         // --- 2. ICONS (Lucide React style) ---
@@ -893,166 +894,166 @@
 
         // Section: Operations (Dual Mode)
         const Operations = () => {
-    const [mode, setMode] = useState('user');
-    const [timerActive, setTimerActive] = useState(false);
+            const [mode, setMode] = useState('user');
+            const [timerActive, setTimerActive] = useState(false);
 
-    return (
-        <div className="space-y-8 fade-in max-w-6xl mx-auto pb-10 px-4">
-            {/* Hàng 1: Dual Mode & System Call Flow */}
-            <div className="grid md:grid-cols-2 gap-8">
-                {/* 1. Dual Mode Card */}
-                <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 flex flex-col">
-                    <h2 className="text-2xl font-black text-slate-800 mb-6 flex items-center">
-                        <div className="p-2 bg-indigo-50 rounded-xl mr-4 text-indigo-600">
-                            <Shield size={24} />
-                        </div>
-                        <span><Term>Dual Mode</Term> Operation</span>
-                    </h2>
-                    <p className="text-sm text-slate-500 mb-8 leading-relaxed">
-                        Để ngăn lỗi lan rộng, phần cứng hỗ trợ ít nhất 2 chế độ riêng biệt, được phân biệt qua biến <strong>Mode Bit</strong>.
-                    </p>
+            return (
+                <div className="space-y-8 fade-in max-w-6xl mx-auto pb-10 px-4">
+                    {/* Hàng 1: Dual Mode & System Call Flow */}
+                    <div className="grid md:grid-cols-2 gap-8">
+                        {/* 1. Dual Mode Card */}
+                        <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 flex flex-col">
+                            <h2 className="text-2xl font-black text-slate-800 mb-6 flex items-center">
+                                <div className="p-2 bg-indigo-50 rounded-xl mr-4 text-indigo-600">
+                                    <Shield size={24} />
+                                </div>
+                                <span><Term>Dual Mode</Term> Operation</span>
+                            </h2>
+                            <p className="text-sm text-slate-500 mb-8 leading-relaxed">
+                                Để ngăn lỗi lan rộng, phần cứng hỗ trợ ít nhất 2 chế độ riêng biệt, được phân biệt qua biến <strong>Mode Bit</strong>.
+                            </p>
 
-                    <div className="space-y-4 flex-1">
-                        <div
-                            onClick={() => setMode('user')}
-                            className={`p-6 rounded-2xl border-2 transition-all duration-300 cursor-pointer ${mode === 'user' ? 'bg-indigo-50 border-indigo-600 shadow-md translate-x-1' : 'bg-slate-50 border-slate-100 opacity-60 hover:opacity-100'}`}
-                        >
-                            <div className="flex justify-between items-center mb-2">
-                                <span className="font-black text-indigo-900 tracking-tight">User Mode (Bit = 1)</span>
-                                {mode === 'user' && <span className="flex h-2 w-2 rounded-full bg-indigo-600 animate-ping"></span>}
-                            </div>
-                            <p className="text-xs text-slate-500 font-medium italic">Thực thi mã ứng dụng. Các lệnh nhạy cảm (privileged) bị cấm hoàn toàn.</p>
-                        </div>
+                            <div className="space-y-4 flex-1">
+                                <div
+                                    onClick={() => setMode('user')}
+                                    className={`p-6 rounded-2xl border-2 transition-all duration-300 cursor-pointer ${mode === 'user' ? 'bg-indigo-50 border-indigo-600 shadow-md translate-x-1' : 'bg-slate-50 border-slate-100 opacity-60 hover:opacity-100'}`}
+                                >
+                                    <div className="flex justify-between items-center mb-2">
+                                        <span className="font-black text-indigo-900 tracking-tight">User Mode (Bit = 1)</span>
+                                        {mode === 'user' && <span className="flex h-2 w-2 rounded-full bg-indigo-600 animate-ping"></span>}
+                                    </div>
+                                    <p className="text-xs text-slate-500 font-medium italic">Thực thi mã ứng dụng. Các lệnh nhạy cảm (privileged) bị cấm hoàn toàn.</p>
+                                </div>
 
-                        <div
-                            onClick={() => setMode('kernel')}
-                            className={`p-6 rounded-2xl border-2 transition-all duration-300 cursor-pointer ${mode === 'kernel' ? 'bg-red-50 border-red-600 shadow-md translate-x-1' : 'bg-slate-50 border-slate-100 opacity-60 hover:opacity-100'}`}
-                        >
-                            <div className="flex justify-between items-center mb-2">
-                                <span className="font-black text-red-900 tracking-tight">Kernel Mode (Bit = 0)</span>
-                                {mode === 'kernel' && <span className="flex h-2 w-2 rounded-full bg-red-600 animate-ping"></span>}
-                            </div>
-                            <p className="text-xs text-slate-500 font-medium italic">Dành cho Hệ Điều Hành. Toàn quyền truy cập phần cứng và các lệnh đặc quyền.</p>
-                        </div>
-                    </div>
-                </div>
-
-                {/* 2. System Call Flow Card */}
-                <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 flex flex-col">
-                    <h2 className="text-2xl font-black text-slate-800 mb-6 flex items-center">
-                        <div className="p-2 bg-indigo-50 rounded-xl mr-4 text-indigo-600">
-                            <Layers size={24} />
-                        </div>
-                        <span>Luồng <Term>System Call</Term></span>
-                    </h2>
-                    <div className="flex-1 relative border-l-2 border-dashed border-slate-100 ml-5 pl-8 space-y-8 py-2">
-                        {[
-                            { id: 1, title: "User Program", desc: "Gọi System Call (vd: read file).", color: "bg-indigo-600" },
-                            { id: 2, title: "Trap / Exception", desc: "Phần cứng đổi Mode Bit 1 -> 0.", color: "bg-slate-400" },
-                            { id: 3, title: "Kernel Execute", desc: "OS thực thi lệnh đặc quyền.", color: "bg-red-600" },
-                            { id: 4, title: "Return", desc: "Đổi Mode Bit 0 -> 1, trả kết quả.", color: "bg-emerald-500" }
-                        ].map((s) => (
-                            <div key={s.id} className="relative group">
-                                <span className={`absolute -left-[45px] top-0 w-8 h-8 rounded-full ${s.color} text-white text-[11px] font-black flex items-center justify-center ring-4 ring-white shadow-lg transition-transform group-hover:scale-125`}>{s.id}</span>
-                                <div className="p-1">
-                                    <span className="font-black text-slate-800 block text-sm mb-1">{s.title}</span>
-                                    <span className="text-xs text-slate-500 font-medium">{s.desc}</span>
+                                <div
+                                    onClick={() => setMode('kernel')}
+                                    className={`p-6 rounded-2xl border-2 transition-all duration-300 cursor-pointer ${mode === 'kernel' ? 'bg-red-50 border-red-600 shadow-md translate-x-1' : 'bg-slate-50 border-slate-100 opacity-60 hover:opacity-100'}`}
+                                >
+                                    <div className="flex justify-between items-center mb-2">
+                                        <span className="font-black text-red-900 tracking-tight">Kernel Mode (Bit = 0)</span>
+                                        {mode === 'kernel' && <span className="flex h-2 w-2 rounded-full bg-red-600 animate-ping"></span>}
+                                    </div>
+                                    <p className="text-xs text-slate-500 font-medium italic">Dành cho Hệ Điều Hành. Toàn quyền truy cập phần cứng và các lệnh đặc quyền.</p>
                                 </div>
                             </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-
-            {/* Hàng 2: Timer Section (Bổ sung mới) */}
-            <div className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-slate-100 relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-8 opacity-5 text-indigo-600">
-                    <Icon size={160}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></Icon>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-50 text-amber-600 rounded-full text-[10px] font-black uppercase tracking-widest mb-4">
-                            Resource Protection
                         </div>
-                        <h2 className="text-3xl font-black text-slate-800 mb-6 leading-tight">
-                            Cơ chế <Term>Timer</Term>
-                        </h2>
-                        <p className="text-slate-600 leading-relaxed mb-6 font-medium">
-                            Timer được sử dụng để ngăn chương trình người dùng chiếm giữ CPU quá lâu (vòng lặp vô hạn). 
-                            Đây là công cụ giúp OS thực hiện <strong>Đa nhiệm (Multitasking)</strong>.
-                        </p>
-                        
-                        <div className="space-y-4">
-    <div className="flex gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100">
-        <div className="shrink-0 w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-amber-500 font-black">1</div>
-        <div>
-            <h4 className="font-bold text-slate-800 text-sm">Thiết lập Counter</h4>
-            {/* Sử dụng <Term> viết hoa và bỏ thẻ <span> dư thừa */}
-            <p className="text-xs text-slate-500 mt-1">
-                OS đặt một giá trị vào bộ đếm (đây là một 
-                <Term k="privileged instruction">Privileged Instruction</Term>).
-            </p>
-        </div>
-    </div>
-    
-    <div className="flex gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100">
-        <div className="shrink-0 w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-amber-500 font-black">2</div>
-        <div>
-            <h4 className="font-bold text-slate-800 text-sm">Tạo ngắt (Interrupt)</h4>
-            <p className="text-xs text-slate-500 mt-1">
-                Khi bộ đếm về 0, một ngắt phần cứng xảy ra, trả quyền điều khiển về cho OS.
-            </p>
-        </div>
-    </div>
-</div>
-                    </div>
 
-                    {/* Timer Animation Demo */}
-                    <div className="flex flex-col items-center justify-center p-8 bg-slate-900 rounded-[2rem] shadow-2xl relative">
-                        <div className="text-[10px] font-black text-indigo-400 uppercase tracking-[0.3em] mb-8">CPU Control Monitor</div>
-                        
-                        {/* Circle Progress */}
-                        <div className="relative w-48 h-48 flex items-center justify-center mb-8">
-                            <svg className="w-full h-full transform -rotate-90">
-                                <circle cx="96" cy="96" r="80" stroke="currentColor" strokeWidth="12" fill="transparent" className="text-slate-800" />
-                                <circle 
-                                    cx="96" cy="96" r="80" stroke="currentColor" strokeWidth="12" fill="transparent" 
-                                    className={`${timerActive ? 'text-indigo-500' : 'text-emerald-500'} transition-all duration-[3000ms] ease-linear`} 
-                                    strokeDasharray={502}
-                                    strokeDashoffset={timerActive ? 502 : 0}
-                                />
-                            </svg>
-                            <div className="absolute flex flex-col items-center">
-                                <span className={`text-3xl font-black ${timerActive ? 'text-indigo-400' : 'text-emerald-400'}`}>
-                                    {timerActive ? 'USER' : 'OS'}
-                                </span>
-                                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Mode</span>
+                        {/* 2. System Call Flow Card */}
+                        <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 flex flex-col">
+                            <h2 className="text-2xl font-black text-slate-800 mb-6 flex items-center">
+                                <div className="p-2 bg-indigo-50 rounded-xl mr-4 text-indigo-600">
+                                    <Layers size={24} />
+                                </div>
+                                <span>Luồng <Term>System Call</Term></span>
+                            </h2>
+                            <div className="flex-1 relative border-l-2 border-dashed border-slate-100 ml-5 pl-8 space-y-8 py-2">
+                                {[
+                                    { id: 1, title: "User Program", desc: "Gọi System Call (vd: read file).", color: "bg-indigo-600" },
+                                    { id: 2, title: "Trap / Exception", desc: "Phần cứng đổi Mode Bit 1 -> 0.", color: "bg-slate-400" },
+                                    { id: 3, title: "Kernel Execute", desc: "OS thực thi lệnh đặc quyền.", color: "bg-red-600" },
+                                    { id: 4, title: "Return", desc: "Đổi Mode Bit 0 -> 1, trả kết quả.", color: "bg-emerald-500" }
+                                ].map((s) => (
+                                    <div key={s.id} className="relative group">
+                                        <span className={`absolute -left-[45px] top-0 w-8 h-8 rounded-full ${s.color} text-white text-[11px] font-black flex items-center justify-center ring-4 ring-white shadow-lg transition-transform group-hover:scale-125`}>{s.id}</span>
+                                        <div className="p-1">
+                                            <span className="font-black text-slate-800 block text-sm mb-1">{s.title}</span>
+                                            <span className="text-xs text-slate-500 font-medium">{s.desc}</span>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
+                    </div>
 
-                        <button 
-                            onClick={() => {
-                                setTimerActive(true);
-                                setTimeout(() => setTimerActive(false), 3000);
-                            }}
-                            disabled={timerActive}
-                            className={`px-8 py-3 rounded-xl font-black text-xs tracking-widest transition-all ${timerActive ? 'bg-slate-800 text-slate-600' : 'bg-indigo-600 text-white hover:bg-white hover:text-indigo-600'}`}
-                        >
-                            {timerActive ? 'TIMER COUNTING...' : 'START USER PROCESS'}
-                        </button>
+                    {/* Hàng 2: Timer Section (Bổ sung mới) */}
+                    <div className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-slate-100 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 p-8 opacity-5 text-indigo-600">
+                            <Icon size={160}><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></Icon>
+                        </div>
 
-                        <div className="mt-6 text-center">
-                            <p className="text-[10px] text-slate-400 leading-relaxed font-medium italic">
-                                "Khi Timer hết hạn, CPU sẽ tự động gọi Interrupt chuyển từ User về Kernel."
-                            </p>
+                        <div className="grid md:grid-cols-2 gap-12 items-center">
+                            <div>
+                                <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-50 text-amber-600 rounded-full text-[10px] font-black uppercase tracking-widest mb-4">
+                                    Resource Protection
+                                </div>
+                                <h2 className="text-3xl font-black text-slate-800 mb-6 leading-tight">
+                                    Cơ chế <Term>Timer</Term>
+                                </h2>
+                                <p className="text-slate-600 leading-relaxed mb-6 font-medium">
+                                    Timer được sử dụng để ngăn chương trình người dùng chiếm giữ CPU quá lâu (vòng lặp vô hạn).
+                                    Đây là công cụ giúp OS thực hiện <strong>Đa nhiệm (Multitasking)</strong>.
+                                </p>
+
+                                <div className="space-y-4">
+                                    <div className="flex gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                                        <div className="shrink-0 w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-amber-500 font-black">1</div>
+                                        <div>
+                                            <h4 className="font-bold text-slate-800 text-sm">Thiết lập Counter</h4>
+                                            {/* Sử dụng <Term> viết hoa và bỏ thẻ <span> dư thừa */}
+                                            <p className="text-xs text-slate-500 mt-1">
+                                                OS đặt một giá trị vào bộ đếm (đây là một
+                                                <Term k="privileged instruction">Privileged Instruction</Term>).
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                                        <div className="shrink-0 w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-amber-500 font-black">2</div>
+                                        <div>
+                                            <h4 className="font-bold text-slate-800 text-sm">Tạo ngắt (Interrupt)</h4>
+                                            <p className="text-xs text-slate-500 mt-1">
+                                                Khi bộ đếm về 0, một ngắt phần cứng xảy ra, trả quyền điều khiển về cho OS.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Timer Animation Demo */}
+                            <div className="flex flex-col items-center justify-center p-8 bg-slate-900 rounded-[2rem] shadow-2xl relative">
+                                <div className="text-[10px] font-black text-indigo-400 uppercase tracking-[0.3em] mb-8">CPU Control Monitor</div>
+
+                                {/* Circle Progress */}
+                                <div className="relative w-48 h-48 flex items-center justify-center mb-8">
+                                    <svg className="w-full h-full transform -rotate-90">
+                                        <circle cx="96" cy="96" r="80" stroke="currentColor" strokeWidth="12" fill="transparent" className="text-slate-800" />
+                                        <circle
+                                            cx="96" cy="96" r="80" stroke="currentColor" strokeWidth="12" fill="transparent"
+                                            className={`${timerActive ? 'text-indigo-500' : 'text-emerald-500'} transition-all duration-[3000ms] ease-linear`}
+                                            strokeDasharray={502}
+                                            strokeDashoffset={timerActive ? 502 : 0}
+                                        />
+                                    </svg>
+                                    <div className="absolute flex flex-col items-center">
+                                        <span className={`text-3xl font-black ${timerActive ? 'text-indigo-400' : 'text-emerald-400'}`}>
+                                            {timerActive ? 'USER' : 'OS'}
+                                        </span>
+                                        <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Mode</span>
+                                    </div>
+                                </div>
+
+                                <button
+                                    onClick={() => {
+                                        setTimerActive(true);
+                                        setTimeout(() => setTimerActive(false), 3000);
+                                    }}
+                                    disabled={timerActive}
+                                    className={`px-8 py-3 rounded-xl font-black text-xs tracking-widest transition-all ${timerActive ? 'bg-slate-800 text-slate-600' : 'bg-indigo-600 text-white hover:bg-white hover:text-indigo-600'}`}
+                                >
+                                    {timerActive ? 'TIMER COUNTING...' : 'START USER PROCESS'}
+                                </button>
+
+                                <div className="mt-6 text-center">
+                                    <p className="text-[10px] text-slate-400 leading-relaxed font-medium italic">
+                                        "Khi Timer hết hạn, CPU sẽ tự động gọi Interrupt chuyển từ User về Kernel."
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    );
-};
+            );
+        };
 
         // --- NEW FEATURE: ENGLISH FLASHCARDS ---
         const EnglishStudy = () => {
@@ -1224,6 +1225,7 @@
             );
         };
         // Section: Quiz
+
         const Quiz = () => {
             const questions = [
                 {
@@ -1313,82 +1315,40 @@
                     expl: "Timer tạo ra các ngắt định kỳ để trả lại quyền điều khiển cho OS, đảm bảo không có tiến trình nào 'độc chiếm' hệ thống."
                 }
             ];
-
-        const [answers, setAnswers] = useState({});
-        const [submitted, setSubmitted] = useState(false);
-        const score = Object.keys(answers).reduce((acc, k) => acc + (answers[k] === questions[k].a ? 1 : 0), 0);
-
-        return (
-            <div className="space-y-6 fade-in max-w-3xl mx-auto pb-10">
-                <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-                    <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center border-b pb-4">
-                        <CheckSquare className="mr-3 text-indigo-600" /> Kiểm tra kiến thức
-                    </h2>
-
-                    <div className="space-y-8">
-                        {questions.map((quest, idx) => (
-                            <div key={idx} className="space-y-3">
-                                <p className="font-bold text-lg text-slate-800">{idx + 1}. {quest.q}</p>
-                                <div className="grid grid-cols-1 gap-2">
-                                    {quest.options.map((opt, optIdx) => {
-                                        let style = "w-full text-left p-4 rounded-lg border-2 transition-all font-medium text-sm ";
-                                        if (submitted) {
-                                            if (optIdx === quest.a) style += "bg-emerald-50 border-emerald-500 text-emerald-800";
-                                            else if (answers[idx] === optIdx) style += "bg-red-50 border-red-500 text-red-800 opacity-75";
-                                            else style += "bg-slate-50 border-slate-100 text-slate-400 opacity-50";
-                                        } else {
-                                            style += answers[idx] === optIdx
-                                                ? "bg-indigo-50 border-indigo-500 text-indigo-800 shadow-sm"
-                                                : "hover:bg-slate-50 border-slate-200 text-slate-600 hover:border-indigo-300";
-                                        }
-
-                                        return (
-                                            <button
-                                                key={optIdx}
-                                                onClick={() => !submitted && setAnswers({ ...answers, [idx]: optIdx })}
-                                                className={style}
-                                            >
-                                                {opt}
-                                            </button>
-                                        );
+            const [ans, setAns] = useState({});
+            const [sub, setSub] = useState(false);
+            const score = Object.keys(ans).reduce((acc, k) => acc + (ans[k] === questions[k].a ? 1 : 0), 0);
+            return (
+                <div className="max-w-4xl mx-auto pb-20 fade-in">
+                    <div className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-slate-100 mb-8 flex flex-col md:flex-row justify-between items-center gap-6">
+                        <div className="flex items-center gap-4">
+                            <div className="w-14 h-14 bg-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-indigo-200"><CheckSquare size={30} /></div>
+                            <div><h2 className="text-2xl font-black text-slate-800 tracking-tight">Kiểm tra Chương 2</h2><p className="text-slate-400 text-sm font-medium">Cấu trúc & Dịch vụ Hệ điều hành</p></div>
+                        </div>
+                        {sub && <div className="px-6 py-3 bg-indigo-50 rounded-2xl border border-indigo-100 font-black text-2xl text-indigo-600">{score}/{questions.length}</div>}
+                    </div>
+                    <div className="space-y-6">
+                        {questions.map((q, i) => (
+                            <div key={i} className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm transition-all hover:shadow-md">
+                                <p className="font-bold text-slate-800 mb-6 flex gap-3 leading-snug"><span className="text-indigo-600 font-black">Q{i + 1}.</span> {q.q}</p>
+                                <div className="grid gap-3 pl-8">
+                                    {q.options.map((o, oi) => {
+                                        let style = "text-left p-4 rounded-2xl border-2 font-bold text-sm transition-all ";
+                                        if (sub) {
+                                            if (oi === q.a) style += "bg-emerald-50 border-emerald-500 text-emerald-700";
+                                            else if (ans[i] === oi) style += "bg-red-50 border-red-500 text-red-700 opacity-60";
+                                            else style += "border-slate-50 text-slate-300";
+                                        } else style += ans[i] === oi ? "bg-indigo-50 border-indigo-600 text-indigo-700 shadow-md" : "border-slate-50 text-slate-500 hover:border-indigo-200";
+                                        return <button key={oi} onClick={() => !sub && setAns({ ...ans, [i]: oi })} className={style}>{o}</button>;
                                     })}
                                 </div>
-                                {submitted && (
-                                    <div className="text-sm bg-blue-50 p-4 rounded-lg border border-blue-100 text-slate-700 mt-2 flex items-start animate-slide-up">
-                                        <span className="font-bold text-blue-600 mr-2 shrink-0">Giải thích:</span>
-                                        <span>{quest.expl}</span>
-                                    </div>
-                                )}
+                                {sub && <div className="mt-6 ml-8 p-4 bg-indigo-50/50 rounded-xl text-xs text-indigo-800 italic border border-indigo-100"><b>Phân tích:</b> {q.expl}</div>}
                             </div>
                         ))}
                     </div>
-
-                    <div className="mt-8 pt-6 border-t flex justify-between items-center">
-                        {!submitted ? (
-                            <button
-                                onClick={() => setSubmitted(true)}
-                                disabled={Object.keys(answers).length < questions.length}
-                                className="px-8 py-3 bg-indigo-600 text-white rounded-lg font-bold hover:bg-indigo-700 shadow-lg shadow-indigo-200 transition-all disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-1"
-                            >
-                                Nộp bài
-                            </button>
-                        ) : (
-                            <div className="flex items-center space-x-6 w-full justify-between bg-slate-50 p-4 rounded-xl border border-slate-200 animate-pop-in">
-                                <div className="text-lg font-bold text-slate-800">
-                                    Kết quả: <span className={score === questions.length ? "text-emerald-600" : "text-indigo-600"}>{score}/{questions.length}</span>
-                                </div>
-                                <button
-                                    onClick={() => { setSubmitted(false); setAnswers({}); }}
-                                    className="px-4 py-2 bg-white text-slate-600 font-semibold hover:bg-slate-100 rounded-lg border border-slate-300 transition-colors shadow-sm"
-                                >
-                                    Làm lại
-                                </button>
-                            </div>
-                        )}
-                    </div>
+                    {!sub ? <button onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); setSub(true) }} disabled={Object.keys(ans).length < 10} className="w-full mt-10 p-5 bg-indigo-600 text-white rounded-[2rem] font-black shadow-2xl disabled:opacity-30 transform hover:-translate-y-1 transition-all">NỘP BÀI KIỂM TRA</button> : <button onClick={() => { setSub(false); setAns({}); }} className="w-full mt-10 p-5 bg-slate-800 text-white rounded-[2rem] font-black shadow-2xl">THỬ THÁCH LẠI</button>}
                 </div>
-            </div>
-        );
+            );
         };
 
         // --- MAIN APP ---
@@ -1427,6 +1387,4 @@
     </script>
 </body>
 
-
 </html>
-

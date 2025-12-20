@@ -343,23 +343,20 @@
         };
 
         const Term = ({ children, k }) => {
-            const { showTooltip, hideTooltip } = useContext(TooltipContext);
-            const key = k || (typeof children === 'string' ? children : '');
+    const { showTooltip, hideTooltip, speak } = useContext(TooltipContext); // Thêm speak vào đây
+    const key = k || children;
 
-            return (
-                <>
-                    {" "}
-                    <span
-                        className="term-highlight"
-                        onMouseEnter={(e) => showTooltip(key, e.target.getBoundingClientRect())}
-                        onMouseLeave={hideTooltip}
-                    >
-                        {children}
-                    </span>
-                    {" "}
-                </>
-            );
-        };
+    return (
+        <span 
+            className="term-highlight" 
+            onMouseEnter={(e) => showTooltip(key, e.target.getBoundingClientRect())} 
+            onMouseLeave={hideTooltip}
+            onClick={() => speak(key)} // Thêm dòng này: Click để phát âm
+        >
+            {children}
+        </span>
+    );
+};
 
         // --- 4. COMPONENTS ---
 
@@ -1198,7 +1195,7 @@
                         /* GRID VIEW: Glossy Cards */
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 slide-up">
                             {terms.map((key) => (
-                                <div key={key} className="group bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
+                                <div key={key} onClick={() => speak(key)} className="group bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
                                     <div className="absolute top-0 left-0 w-1.5 h-full bg-slate-100 group-hover:bg-indigo-600 transition-colors"></div>
                                     <div className="flex justify-between items-start mb-6">
                                         <div>
